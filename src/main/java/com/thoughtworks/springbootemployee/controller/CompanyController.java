@@ -51,4 +51,11 @@ public class CompanyController {
         company.setName(newCompanyInfo.getName());
         return company;
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public Company removeCompany(@PathVariable Long id) {
+        Company company = companyRepository.findById(id);
+        return companyRepository.removeCompany(company);
+    }
 }

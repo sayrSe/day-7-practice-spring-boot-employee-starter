@@ -54,4 +54,9 @@ public class CompanyRepository {
                 .max()
                 .orElse(EMPTY_LIST_SIZE) + ID_INCREMENT;
     }
+
+    public Company removeCompany(Company company) {
+        companies.remove(company);
+        return company;
+    }
 }
