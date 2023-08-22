@@ -10,13 +10,15 @@ import java.util.stream.Collectors;
 public class EmployeeRepository {
 
     private static final List<Employee> employees = new ArrayList<>();
+    public static final long EMPTY_LIST_SIZE = 0L;
+    public static final int ID_INCREMENT = 1;
 
     static  {
         employees.add(new Employee(1L, "Alice", 30, "Female", 5000));
-        employees.add(new Employee(1L, "Bob", 31, "Male", 5000));
-        employees.add(new Employee(1L, "Carl", 32, "Male", 5000));
-        employees.add(new Employee(1L, "David", 33, "Male", 5000));
-        employees.add(new Employee(1L, "Ellen", 34, "Female", 5000));
+        employees.add(new Employee(2L, "Bob", 31, "Male", 5000));
+        employees.add(new Employee(3L, "Carl", 32, "Male", 5000));
+        employees.add(new Employee(4L, "David", 33, "Male", 5000));
+        employees.add(new Employee(5L, "Ellen", 34, "Female", 5000));
     }
 
     public List<Employee> listAll() {
@@ -37,6 +39,16 @@ public class EmployeeRepository {
     }
 
     public void addEmployee(Employee employee) {
-        employees.add(employee);
+        Long id = generateNextId();
+
+        Employee newEmployee = new Employee(id, employee.getName(), employee.getAge(), employee.getGender(), employee.getSalary());
+        employees.add(newEmployee);
+    }
+
+    private Long generateNextId() {
+        return employees.stream()
+                .mapToLong(Employee::getId)
+                .max()
+                .orElse(EMPTY_LIST_SIZE) + ID_INCREMENT;
     }
 }
