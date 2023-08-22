@@ -53,6 +53,6 @@ public class EmployeeController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public Employee deleteEmployee(@PathVariable Long id) {
         Employee employee = employeeRepository.findById(id);
-        return employeeRepository.removeEmployee(employee);
+        return employeeRepository.deleteEmployee(employee);
     }
 }

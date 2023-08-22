@@ -55,7 +55,7 @@ public class CompanyRepository {
                 .orElse(EMPTY_LIST_SIZE) + ID_INCREMENT;
     }
 
-    public Company removeCompany(Company company) {
+    public Company deleteCompany(Company company) {
         companies.remove(company);
         return company;
     }

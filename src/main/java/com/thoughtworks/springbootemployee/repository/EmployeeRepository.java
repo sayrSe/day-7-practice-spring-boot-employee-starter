@@ -61,7 +61,7 @@ public class EmployeeRepository {
                 .collect(Collectors.toList());
     }
 
-    public Employee removeEmployee(Employee employee) {
+    public Employee deleteEmployee(Employee employee) {
         employees.remove(employee);
         return employee;
     }

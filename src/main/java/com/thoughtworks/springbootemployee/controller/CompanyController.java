@@ -56,6 +56,6 @@ public class CompanyController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public Company deleteCompany(@PathVariable Long id) {
         Company company = companyRepository.findById(id);
-        return companyRepository.removeCompany(company);
+        return companyRepository.deleteCompany(company);
     }
 }
