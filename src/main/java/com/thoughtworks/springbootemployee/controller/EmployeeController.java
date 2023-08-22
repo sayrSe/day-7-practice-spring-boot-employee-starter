@@ -49,4 +49,10 @@ public class EmployeeController {
     public List<Employee> listByPage(@RequestParam Long pageNumber, @RequestParam Long pageSize) {
         return employeeRepository.listByPage(pageNumber, pageSize);
     }
+
+    @DeleteMapping("/{id}")
+    public Employee removeEmployee(@PathVariable Long id) {
+        Employee employee = employeeRepository.findById(id);
+        return employeeRepository.removeEmployee(employee);
+    }
 }
