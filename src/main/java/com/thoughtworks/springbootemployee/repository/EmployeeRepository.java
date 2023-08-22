@@ -40,11 +40,11 @@ public class EmployeeRepository {
                 .collect(Collectors.toList());
     }
 
-    public void addEmployee(Employee employee) {
+    public Employee addEmployee(Employee employee) {
         Long id = generateNextId();
-
-        Employee newEmployee = new Employee(id, employee.getName(), employee.getAge(), employee.getGender(), employee.getSalary(), 1L);
+        Employee newEmployee = new Employee(id, employee.getName(), employee.getAge(), employee.getGender(), employee.getSalary(), employee.getCompanyId());
         employees.add(newEmployee);
+        return newEmployee;
     }
 
     private Long generateNextId() {
