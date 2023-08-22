@@ -13,7 +13,7 @@ public class EmployeeRepository {
     public static final long EMPTY_LIST_SIZE = 0L;
     public static final int ID_INCREMENT = 1;
 
-    static  {
+    static {
         employees.add(new Employee(1L, "Alice", 30, "Female", 5000));
         employees.add(new Employee(2L, "Bob", 31, "Male", 5000));
         employees.add(new Employee(3L, "Carl", 32, "Male", 5000));
@@ -50,5 +50,12 @@ public class EmployeeRepository {
                 .mapToLong(Employee::getId)
                 .max()
                 .orElse(EMPTY_LIST_SIZE) + ID_INCREMENT;
+    }
+
+    public List<Employee> listByPage(Long pageNumber, Long pageSize) {
+        return employees.stream()
+                .skip((pageNumber - 1) + pageSize)
+                .limit(pageSize)
+                .collect(Collectors.toList());
     }
 }

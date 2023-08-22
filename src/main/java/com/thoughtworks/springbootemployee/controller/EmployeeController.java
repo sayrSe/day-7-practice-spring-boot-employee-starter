@@ -30,7 +30,7 @@ public class EmployeeController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Employee addEmployee(@RequestBody Employee employee){
+    public Employee addEmployee(@RequestBody Employee employee) {
         employeeRepository.addEmployee(employee);
         return employee;
     }
@@ -41,5 +41,10 @@ public class EmployeeController {
         employee.setAge(newEmployee.getAge());
         employee.setSalary(newEmployee.getSalary());
         return employee;
+    }
+
+    @GetMapping(params = {"pageNumber", "pageSize"})
+    public List<Employee> listByPage(@RequestParam Long pageNumber, @RequestParam Long pageSize) {
+        return employeeRepository.listByPage(pageNumber, pageSize);
     }
 }
