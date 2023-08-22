@@ -42,7 +42,14 @@ public class EmployeeRepository {
 
     public Employee addEmployee(Employee employee) {
         Long id = generateNextId();
-        Employee newEmployee = new Employee(id, employee.getName(), employee.getAge(), employee.getGender(), employee.getSalary(), employee.getCompanyId());
+        Employee newEmployee = new Employee(
+                id,
+                employee.getName(),
+                employee.getAge(),
+                employee.getGender(),
+                employee.getSalary(),
+                employee.getCompanyId());
+
         employees.add(newEmployee);
         return newEmployee;
     }
