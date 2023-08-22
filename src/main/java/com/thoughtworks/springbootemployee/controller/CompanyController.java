@@ -5,6 +5,7 @@ import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,5 +37,11 @@ public class CompanyController {
     @GetMapping(params = {"pageNumber", "pageSize"})
     public List<Company> listByPage(@RequestParam Long pageNumber, @RequestParam Long pageSize) {
         return companyRepository.listByPage(pageNumber, pageSize);
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Company addCompany(@RequestBody Company company) {
+        return companyRepository.addCompany(company);
     }
 }

@@ -12,6 +12,8 @@ import java.util.stream.Collectors;
 public class CompanyRepository {
 
     private static final List<Company> companies = new ArrayList<>();
+    public static final long EMPTY_LIST_SIZE = 0L;
+    public static final int ID_INCREMENT = 1;
 
     static {
         companies.add(new Company(1L, "Orient Overseas Container Line"));
@@ -37,5 +39,19 @@ public class CompanyRepository {
                 .skip((pageNumber - 1) * pageSize)
                 .limit(pageSize)
                 .collect(Collectors.toList());
+    }
+
+    public Company addCompany(Company company) {
+        Long id = generateNextId();
+        Company newCompany = new Company(id, company.getName());
+        companies.add(newCompany);
+        return newCompany;
+    }
+
+    private Long generateNextId() {
+        return companies.stream()
+                .mapToLong(Company::getId)
+                .max()
+                .orElse(EMPTY_LIST_SIZE) + ID_INCREMENT;
     }
 }
