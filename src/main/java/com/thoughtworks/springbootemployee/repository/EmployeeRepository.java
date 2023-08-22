@@ -16,11 +16,11 @@ public class EmployeeRepository {
     public static final int ID_INCREMENT = 1;
 
     static {
-        employees.add(new Employee(1L, "Alice", 30, "Female", 5000));
-        employees.add(new Employee(2L, "Bob", 31, "Male", 5000));
-        employees.add(new Employee(3L, "Carl", 32, "Male", 5000));
-        employees.add(new Employee(4L, "David", 33, "Male", 5000));
-        employees.add(new Employee(5L, "Ellen", 34, "Female", 5000));
+        employees.add(new Employee(1L, "Alice", 30, "Female", 5000, 1L));
+        employees.add(new Employee(2L, "Bob", 31, "Male", 5000, 2L));
+        employees.add(new Employee(3L, "Carl", 32, "Male", 5000, 1L));
+        employees.add(new Employee(4L, "David", 33, "Male", 5000, 2L));
+        employees.add(new Employee(5L, "Ellen", 34, "Female", 5000, 3L));
     }
 
     public List<Employee> listAll() {
@@ -43,7 +43,7 @@ public class EmployeeRepository {
     public void addEmployee(Employee employee) {
         Long id = generateNextId();
 
-        Employee newEmployee = new Employee(id, employee.getName(), employee.getAge(), employee.getGender(), employee.getSalary());
+        Employee newEmployee = new Employee(id, employee.getName(), employee.getAge(), employee.getGender(), employee.getSalary(), 1L);
         employees.add(newEmployee);
     }
 
@@ -64,5 +64,11 @@ public class EmployeeRepository {
     public Employee removeEmployee(Employee employee) {
         employees.remove(employee);
         return employee;
+    }
+
+    public List<Employee> findEmployeesByCompanyId(Long id) {
+        return employees.stream()
+                .filter(employee -> employee.getCompanyId().equals(id))
+                .collect(Collectors.toList());
     }
 }
