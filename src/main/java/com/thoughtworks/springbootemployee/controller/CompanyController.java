@@ -54,8 +54,8 @@ public class CompanyController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Company deleteCompany(@PathVariable Long id) {
+    public void deleteCompany(@PathVariable Long id) {
         Company company = companyRepository.findById(id);
-        return companyRepository.deleteCompany(company);
+        companyRepository.deleteCompany(company);
     }
 }

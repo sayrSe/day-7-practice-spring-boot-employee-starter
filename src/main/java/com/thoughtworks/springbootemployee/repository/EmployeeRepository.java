@@ -61,9 +61,8 @@ public class EmployeeRepository {
                 .collect(Collectors.toList());
     }
 
-    public Employee deleteEmployee(Employee employee) {
+    public void deleteEmployee(Employee employee) {
         employees.remove(employee);
-        return employee;
     }
 
     public List<Employee> findEmployeesByCompanyId(Long id) {
