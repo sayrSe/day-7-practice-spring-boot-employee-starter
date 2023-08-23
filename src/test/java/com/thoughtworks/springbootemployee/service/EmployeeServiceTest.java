@@ -36,6 +36,10 @@ public class EmployeeServiceTest {
         assertEquals(20, employeeResponse.getAge());
         assertEquals("Female", employeeResponse.getGender());
         assertEquals(3000, employeeResponse.getSalary());
+        verify(mockedEmployeeRepository).addEmployee(argThat(tempEmployee -> {
+            assertTrue(tempEmployee.isActive());
+            return true;
+        }));
     }
 
     @Test
