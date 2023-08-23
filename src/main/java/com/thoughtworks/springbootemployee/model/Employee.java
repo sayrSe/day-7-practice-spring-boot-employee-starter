@@ -70,7 +70,7 @@ public class Employee {
     }
 
     public Boolean isInactive() {
-        return !active;
+        return active != null && !active;
     }
 
     public void setActive(Boolean active) {
