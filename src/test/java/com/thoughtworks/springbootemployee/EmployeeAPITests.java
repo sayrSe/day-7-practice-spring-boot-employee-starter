@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -125,12 +126,15 @@ public class EmployeeAPITests {
     }
 
     @Test
-    void should_return_response_status_204_no_content_when_perform_delete_employee_given_an_employee_id() throws Exception {
+    void should_return_response_status_204_no_content_and_employee_not_found_when_perform_delete_employee_given_an_employee_id() throws Exception {
         // Given
         Employee alice = employeeRepository.addEmployee(new Employee("Alice", 24, "Female", 9000, 1L));
 
         // When, Then
         mockMvcClient.perform(MockMvcRequestBuilders.delete("/employees/" + alice.getId()))
                 .andExpect(status().isNoContent());
+
+        mockMvcClient.perform(MockMvcRequestBuilders.get("/employees/" + alice.getId()))
+                .andExpect(status().isNotFound());
     }
 }
