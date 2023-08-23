@@ -42,6 +42,23 @@ public class EmployeeServiceTest {
     }
 
     @Test
+    void should_return_the_employee_when_get_employee_given_employee_service_and_an_employee_id() {
+    	// Given
+        Employee employee = new Employee(null, "Lucy", 20, "Female", 3000);
+        when(mockedEmployeeRepository.findEmployeeById(employee.getId())).thenReturn(employee);
+
+    	// When
+        Employee foundEmployee = employeeService.findById(employee.getId());
+
+    	// Then
+        assertEquals(employee.getId(), foundEmployee.getId());
+        assertEquals(employee.getName(), foundEmployee.getName());
+        assertEquals(employee.getAge(), foundEmployee.getAge());
+        assertEquals(employee.getGender(), foundEmployee.getGender());
+        assertEquals(employee.getSalary(), foundEmployee.getSalary());
+    }
+
+    @Test
     void should_return_created_active_employee_when_create_given_employee_service_and_employee_with_valid_age() {
         // Given
         Employee employee = new Employee(null, "Lucy", 20, "Female", 3000);

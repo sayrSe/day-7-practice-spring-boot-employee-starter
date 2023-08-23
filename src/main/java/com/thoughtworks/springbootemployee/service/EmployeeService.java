@@ -21,6 +21,10 @@ public class EmployeeService {
         return employeeRepository.getAllEmployees();
     }
 
+    public Employee findById(Long id) {
+        return employeeRepository.findEmployeeById(id);
+    }
+
     public Employee create(Employee employee) {
         if (employee.hasInvalidAge()) {
             throw new EmployeeCreateException();
