@@ -61,11 +61,6 @@ public class CompanyRepository {
                 .orElse(EMPTY_LIST_SIZE) + ID_INCREMENT;
     }
 
-    public void deleteCompany(Long id) {
-        Company company = findCompanyById(id);
-        companies.remove(company);
-    }
-
     public void cleanAll() {
         companies.clear();
     }

@@ -75,11 +75,6 @@ public class EmployeeRepository {
         return employee;
     }
 
-    public void deleteEmployee(Long id) {
-        Employee employee = findEmployeeById(id);
-        employees.remove(employee);
-    }
-
     public List<Employee> findEmployeesByCompanyId(Long id) {
         return employees.stream()
                 .filter(employee -> employee.getCompanyId().equals(id))
