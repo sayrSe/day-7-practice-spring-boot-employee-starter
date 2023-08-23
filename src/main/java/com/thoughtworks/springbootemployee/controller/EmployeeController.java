@@ -38,10 +38,7 @@ public class EmployeeController {
 
     @PutMapping("/{id}")
     public Employee updateEmployee(@PathVariable Long id, @RequestBody Employee newEmployeeInfo) {
-        Employee employee = employeeRepository.findById(id);
-        employee.setAge(newEmployeeInfo.getAge());
-        employee.setSalary(newEmployeeInfo.getSalary());
-        return employee;
+        return employeeRepository.updateEmployee(id, newEmployeeInfo);
     }
 
     @GetMapping(params = {"pageNumber", "pageSize"})

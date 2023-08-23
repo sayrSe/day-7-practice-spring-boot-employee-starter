@@ -68,6 +68,13 @@ public class EmployeeRepository {
                 .collect(Collectors.toList());
     }
 
+    public Employee updateEmployee(Long id, Employee newEmployeeInfo) {
+        Employee employee = findById(id);
+        employee.setAge(newEmployeeInfo.getAge());
+        employee.setSalary(newEmployeeInfo.getSalary());
+        return employee;
+    }
+
     public void deleteEmployee(Employee employee) {
         employees.remove(employee);
     }
