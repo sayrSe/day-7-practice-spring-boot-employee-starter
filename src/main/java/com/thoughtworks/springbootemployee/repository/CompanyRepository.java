@@ -48,6 +48,12 @@ public class CompanyRepository {
         return newCompany;
     }
 
+    public Company updateCompany(Long id, Company newCompanyInfo) {
+        Company company = findById(id);
+        company.setName(newCompanyInfo.getName());
+        return company;
+    }
+
     private Long generateNextId() {
         return companies.stream()
                 .mapToLong(Company::getId)
