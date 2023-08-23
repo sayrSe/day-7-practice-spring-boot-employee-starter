@@ -90,9 +90,7 @@ public class EmployeeServiceTest {
         // Given
         Employee employee = new Employee(null, "Lucy", 20, "Female", 3000);
         employee.setActive(Boolean.TRUE);
-        Employee updatedEmployeeInfo = new Employee();
-        updatedEmployeeInfo.setAge(30);
-        updatedEmployeeInfo.setSalary(10000);
+        Employee updatedEmployeeInfo = new Employee(null, "Lucy", 30, "Female", 10000);
         when(mockedEmployeeRepository.findEmployeeById(employee.getId())).thenReturn(employee);
         when(mockedEmployeeRepository.updateEmployee(employee.getId(), employee)).thenReturn(employee);
 
