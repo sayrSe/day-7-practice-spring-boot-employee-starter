@@ -23,12 +23,12 @@ public class CompanyController {
 
     @GetMapping
     public List<Company> listAll() {
-        return companyRepository.listAll();
+        return companyRepository.getAllCompanies();
     }
 
     @GetMapping("/{id}")
     public Company findById(@PathVariable Long id) {
-        return companyRepository.findById(id);
+        return companyRepository.findCompanyById(id);
     }
 
     @GetMapping("/{id}/employees")
@@ -38,7 +38,7 @@ public class CompanyController {
 
     @GetMapping(params = {"pageNumber", "pageSize"})
     public List<Company> listByPage(@RequestParam Long pageNumber, @RequestParam Long pageSize) {
-        return companyRepository.listByPage(pageNumber, pageSize);
+        return companyRepository.listCompaniesByPage(pageNumber, pageSize);
     }
 
     @PostMapping

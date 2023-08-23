@@ -23,18 +23,18 @@ public class CompanyRepository {
         companies.add(new Company(5L, "Apple"));
     }
 
-    public List<Company> listAll() {
+    public List<Company> getAllCompanies() {
         return companies;
     }
 
-    public Company findById(Long id) {
+    public Company findCompanyById(Long id) {
         return companies.stream()
                 .filter(company -> company.getId().equals(id))
                 .findFirst()
                 .orElseThrow(CompanyNotFoundException::new);
     }
 
-    public List<Company> listByPage(Long pageNumber, Long pageSize) {
+    public List<Company> listCompaniesByPage(Long pageNumber, Long pageSize) {
         return companies.stream()
                 .skip((pageNumber - 1) * pageSize)
                 .limit(pageSize)
@@ -42,19 +42,19 @@ public class CompanyRepository {
     }
 
     public Company addCompany(Company company) {
-        Long id = generateNextId();
+        Long id = generateNextCompanyId();
         Company newCompany = new Company(id, company.getName());
         companies.add(newCompany);
         return newCompany;
     }
 
     public Company updateCompany(Long id, Company newCompanyInfo) {
-        Company company = findById(id);
+        Company company = findCompanyById(id);
         company.setName(newCompanyInfo.getName());
         return company;
     }
 
-    private Long generateNextId() {
+    private Long generateNextCompanyId() {
         return companies.stream()
                 .mapToLong(Company::getId)
                 .max()
@@ -62,7 +62,7 @@ public class CompanyRepository {
     }
 
     public void deleteCompany(Long id) {
-        Company company = findById(id);
+        Company company = findCompanyById(id);
         companies.remove(company);
     }
 }
