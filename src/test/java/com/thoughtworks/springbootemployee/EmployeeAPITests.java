@@ -123,4 +123,14 @@ public class EmployeeAPITests {
                 .andExpect(jsonPath("$.age").value(30))
                 .andExpect(jsonPath("$.salary").value(10000));
     }
+
+    @Test
+    void should_return_response_status_204_no_content_when_perform_delete_employee_given_an_employee_id() throws Exception {
+        // Given
+        Employee alice = employeeRepository.addEmployee(new Employee("Alice", 24, "Female", 9000, 1L));
+
+        // When, Then
+        mockMvcClient.perform(MockMvcRequestBuilders.delete("/employees/" + alice.getId()))
+                .andExpect(status().isNoContent());
+    }
 }
