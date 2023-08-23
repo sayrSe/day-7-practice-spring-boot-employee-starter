@@ -59,6 +59,25 @@ public class EmployeeServiceTest {
     }
 
     @Test
+    void should_return_employees_by_given_gender_when_get_employees_given_employee_service() {
+        // Given
+        Employee alice = new Employee(null, "Alice", 24, "Female", 9000);
+        Employee bob = new Employee(null, "Bob", 28, "Male", 8000);
+        List<Employee> employees = List.of(alice, bob);
+        when(mockedEmployeeRepository.findEmployeeByGender(anyString())).thenReturn(employees);
+
+        // When
+        List<Employee> foundEmployees = employeeService.findByGender("Female");
+
+        // Then
+        assertEquals(foundEmployees.get(0).getId(), alice.getId());
+        assertEquals(foundEmployees.get(0).getName(), alice.getName());
+        assertEquals(foundEmployees.get(0).getAge(), alice.getAge());
+        assertEquals(foundEmployees.get(0).getGender(), alice.getGender());
+        assertEquals(foundEmployees.get(0).getSalary(), alice.getSalary());
+    }
+
+    @Test
     void should_return_created_active_employee_when_create_given_employee_service_and_employee_with_valid_age() {
         // Given
         Employee employee = new Employee(null, "Lucy", 20, "Female", 3000);

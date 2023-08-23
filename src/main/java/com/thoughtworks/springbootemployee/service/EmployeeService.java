@@ -25,6 +25,10 @@ public class EmployeeService {
         return employeeRepository.findEmployeeById(id);
     }
 
+    public List<Employee> findByGender(String gender) {
+        return employeeRepository.findEmployeeByGender(gender);
+    }
+
     public Employee create(Employee employee) {
         if (employee.hasInvalidAge()) {
             throw new EmployeeCreateException();
