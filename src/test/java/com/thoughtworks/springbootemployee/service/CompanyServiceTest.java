@@ -1,6 +1,7 @@
 package com.thoughtworks.springbootemployee.service;
 
 import com.thoughtworks.springbootemployee.model.Company;
+import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -22,7 +24,7 @@ public class CompanyServiceTest {
     void setUp() {
         mockedCompanyRepository = mock(CompanyRepository.class);
         mockedEmployeeRepository = mock(EmployeeRepository.class);
-        companyService = new CompanyService(mockedCompanyRepository);
+        companyService = new CompanyService(mockedCompanyRepository, mockedEmployeeRepository);
     }
 
     @Test
@@ -52,6 +54,28 @@ public class CompanyServiceTest {
         // Then
         assertEquals(company.getId(), foundCompany.getId());
         assertEquals(company.getName(), foundCompany.getName());
+    }
+
+    @Test
+    void should_return_employees_by_given_gender_when_get_employees_given_employee_service() {
+        // Given
+        Long otherCompanyId = 99L;
+        Company company = new Company(1L, "OOCL");
+        Employee alice = new Employee(null, "Alice", 24, "Female", 9000, company.getId());
+        Employee bob = new Employee(null, "Bob", 28, "Male", 8000, otherCompanyId);
+
+        List<Employee> employees = List.of(alice);
+        when(mockedEmployeeRepository.findEmployeesByCompanyId(company.getId())).thenReturn(employees);
+
+        // When
+        List<Employee> foundEmployees = companyService.findEmployeesByCompanyId(company.getId());
+
+        // Then
+        assertEquals(foundEmployees.get(0).getId(), alice.getId());
+        assertEquals(foundEmployees.get(0).getName(), alice.getName());
+        assertEquals(foundEmployees.get(0).getAge(), alice.getAge());
+        assertEquals(foundEmployees.get(0).getGender(), alice.getGender());
+        assertEquals(foundEmployees.get(0).getSalary(), alice.getSalary());
     }
 
     @Test
