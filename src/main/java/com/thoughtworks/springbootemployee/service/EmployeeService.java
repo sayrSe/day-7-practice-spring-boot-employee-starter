@@ -45,11 +45,9 @@ public class EmployeeService {
 
     public Employee update(Long id, Employee newEmployeeInfo) {
         Employee matchedEmployee = employeeRepository.findEmployeeById(id);
-        if (matchedEmployee.isInactive()) {
+        if (Boolean.TRUE.equals(matchedEmployee.isInactive())) {
             throw new EmployeeUpdateException();
         }
-        matchedEmployee.setAge(newEmployeeInfo.getAge());
-        matchedEmployee.setSalary(newEmployeeInfo.getSalary());
-        return employeeRepository.updateEmployee(id, matchedEmployee);
+        return employeeRepository.updateEmployee(id, newEmployeeInfo);
     }
 }
