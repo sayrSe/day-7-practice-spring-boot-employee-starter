@@ -14,7 +14,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -110,7 +109,7 @@ public class EmployeeAPITests {
 
     @Test
     void should_return_updated_employee_when_perform_update_employee_given_employee_age_and_salary() throws Exception {
-    	// Given
+        // Given
         Employee alice = employeeRepository.addEmployee(new Employee("Alice", 24, "Female", 9000, 1L));
         Employee updatedEmployeeInfo = new Employee();
         updatedEmployeeInfo.setAge(30);
@@ -136,5 +135,24 @@ public class EmployeeAPITests {
 
         mockMvcClient.perform(MockMvcRequestBuilders.get("/employees/" + alice.getId()))
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void should_paged_employees_when_perform_get_list_paged_employees_given_pageNumber_and_pageSize() throws Exception {
+        // Given
+        employeeRepository.addEmployee(new Employee("Bob", 28, "Male", 8000, 1L));
+        Employee alice = employeeRepository.addEmployee(new Employee("Alice", 24, "Female", 9000, 1L));
+
+        // When, Then
+        mockMvcClient.perform(MockMvcRequestBuilders.get("/employees")
+                        .param("pageNumber", "2")
+                        .param("pageSize", "1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$[0].id").value(alice.getId()))
+                .andExpect(jsonPath("$[0].name").value(alice.getName()))
+                .andExpect(jsonPath("$[0].age").value(alice.getAge()))
+                .andExpect(jsonPath("$[0].gender").value(alice.getGender()))
+                .andExpect(jsonPath("$[0].salary").value(alice.getSalary()));
     }
 }
