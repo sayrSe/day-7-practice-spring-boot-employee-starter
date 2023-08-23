@@ -6,8 +6,7 @@ import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -23,7 +22,7 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    void should_return_create_employee_when_create_given_employee_service_and_employee_with_valid_age() {
+    void should_return_create_active_employee_when_create_given_employee_service_and_employee_with_valid_age() {
         // Given
         Employee employee = new Employee("Lucy", 20, "Female", 3000, 1L);
         Employee savedEmployee = new Employee(1L, "Lucy", 20, "Female", 3000, 1L);
@@ -38,6 +37,7 @@ public class EmployeeServiceTest {
         assertEquals(20, employeeResponse.getAge());
         assertEquals("Female", employeeResponse.getGender());
         assertEquals(3000, employeeResponse.getSalary());
+        assertTrue(employeeResponse.isActive());
     }
 
     @Test
