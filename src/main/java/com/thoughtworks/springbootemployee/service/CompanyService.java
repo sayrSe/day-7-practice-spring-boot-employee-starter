@@ -32,4 +32,10 @@ public class CompanyService {
     public List<Employee> findEmployeesByCompanyId(Long id) {
         return employeeRepository.findEmployeesByCompanyId(id);
     }
+
+    public void delete(Long id) {
+        Company matchedCompany = companyRepository.findCompanyById(id);
+        matchedCompany.setActive(Boolean.FALSE);
+        companyRepository.updateCompany(id, matchedCompany);
+    }
 }

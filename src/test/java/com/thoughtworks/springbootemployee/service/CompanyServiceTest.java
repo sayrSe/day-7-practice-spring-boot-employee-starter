@@ -10,9 +10,11 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.*;
 
 public class CompanyServiceTest {
 
@@ -74,6 +76,24 @@ public class CompanyServiceTest {
         assertEquals(foundEmployees.get(0).getAge(), alice.getAge());
         assertEquals(foundEmployees.get(0).getGender(), alice.getGender());
         assertEquals(foundEmployees.get(0).getSalary(), alice.getSalary());
+    }
+
+    @Test
+    void should_return_inactive_company_when_delete_given_company_service_and_active_company() {
+        // Given
+        Company company = new Company("OOCL");
+        company.setActive(Boolean.TRUE);
+        when(mockedCompanyRepository.findCompanyById(company.getId())).thenReturn(company);
+
+        // When
+        companyService.delete(company.getId());
+
+        // Then
+        verify(mockedCompanyRepository).updateCompany(eq(company.getId()), argThat(tempCompany -> {
+            assertFalse(tempCompany.isActive());
+            assertEquals("OOCL", tempCompany.getName());
+            return true;
+        }));
     }
 
     @Test
