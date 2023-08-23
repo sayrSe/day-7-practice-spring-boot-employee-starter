@@ -30,13 +30,27 @@ public class CompanyAPITests {
 
     @Test
     void should_return_all_companies_when_perform_get_companies() throws Exception {
-        //given
+        // Given
         Company company = companyRepository.addCompany(new Company("OOCL"));
-        //when //then
+
+        // When, Then
         mockMvcClient.perform(MockMvcRequestBuilders.get("/companies"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].id").value(company.getId()))
                 .andExpect(jsonPath("$[0].name").value(company.getName()));
+    }
+
+    @Test
+    void should_return_the_company_when_perform_get_company_given_company_id() throws Exception {
+        // Given
+        Company company = companyRepository.addCompany(new Company("OOCL"));
+        companyRepository.addCompany(new Company("Thoughtworks"));
+
+        // When, Then
+        mockMvcClient.perform(MockMvcRequestBuilders.get("/companies/" + company.getId()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.name").value("OOCL"));
     }
 }
