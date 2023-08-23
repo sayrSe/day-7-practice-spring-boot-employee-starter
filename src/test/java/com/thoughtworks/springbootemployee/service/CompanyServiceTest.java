@@ -1,6 +1,7 @@
 package com.thoughtworks.springbootemployee.service;
 
 import com.thoughtworks.springbootemployee.model.Company;
+import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,5 +39,19 @@ public class CompanyServiceTest {
         // Then
         assertEquals(allCompanies.get(0).getId(), company.getId());
         assertEquals(allCompanies.get(0).getName(), company.getName());
+    }
+
+    @Test
+    void should_return_the_company_when_get_company_given_company_service_and_an_company_id() {
+        // Given
+        Company company = new Company("OOCL");
+        when(mockedCompanyRepository.findCompanyById(company.getId())).thenReturn(company);
+
+        // When
+        Company foundCompany = companyService.findById(company.getId());
+
+        // Then
+        assertEquals(company.getId(), foundCompany.getId());
+        assertEquals(company.getName(), foundCompany.getName());
     }
 }
