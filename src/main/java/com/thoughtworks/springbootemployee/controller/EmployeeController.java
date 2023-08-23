@@ -18,17 +18,17 @@ public class EmployeeController {
     }
 
     @GetMapping
-    public List<Employee> listAll() {
+    public List<Employee> listAllEmployees() {
         return employeeService.getAll();
     }
 
     @GetMapping("/{id}")
-    public Employee findById(@PathVariable Long id) {
+    public Employee findEmployeeById(@PathVariable Long id) {
         return employeeService.findById(id);
     }
 
     @GetMapping(params = {"gender"})
-    public List<Employee> findByGender(@RequestParam String gender) {
+    public List<Employee> findEmployeeByGender(@RequestParam String gender) {
         return employeeService.findByGender(gender);
     }
 
