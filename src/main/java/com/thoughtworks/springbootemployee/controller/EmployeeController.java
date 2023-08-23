@@ -1,7 +1,7 @@
 package com.thoughtworks.springbootemployee.controller;
 
 import com.thoughtworks.springbootemployee.model.Employee;
-import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
+import com.thoughtworks.springbootemployee.service.EmployeeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,46 +11,46 @@ import java.util.List;
 @RequestMapping("/employees")
 public class EmployeeController {
 
-    private final EmployeeRepository employeeRepository;
+    private final EmployeeService employeeService;
 
-    public EmployeeController(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
 
     @GetMapping
     public List<Employee> listAll() {
-        return employeeRepository.getAllEmployees();
+        return employeeService.getAll();
     }
 
     @GetMapping("/{id}")
     public Employee findById(@PathVariable Long id) {
-        return employeeRepository.findEmployeeById(id);
+        return employeeService.findById(id);
     }
 
     @GetMapping(params = {"gender"})
     public List<Employee> findByGender(@RequestParam String gender) {
-        return employeeRepository.findEmployeeByGender(gender);
+        return employeeService.findByGender(gender);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Employee addEmployee(@RequestBody Employee employee) {
-        return employeeRepository.addEmployee(employee);
+        return employeeService.create(employee);
     }
 
     @PutMapping("/{id}")
     public Employee updateEmployee(@PathVariable Long id, @RequestBody Employee newEmployeeInfo) {
-        return employeeRepository.updateEmployee(id, newEmployeeInfo);
+        return employeeService.update(id, newEmployeeInfo);
     }
 
     @GetMapping(params = {"pageNumber", "pageSize"})
     public List<Employee> listByPage(@RequestParam Long pageNumber, @RequestParam Long pageSize) {
-        return employeeRepository.listEmployeesByPage(pageNumber, pageSize);
+        return employeeService.getEmployeesByPage(pageNumber, pageSize);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteEmployee(@PathVariable Long id) {
-        employeeRepository.deleteEmployee(id);
+        employeeService.delete(id);
     }
 }
