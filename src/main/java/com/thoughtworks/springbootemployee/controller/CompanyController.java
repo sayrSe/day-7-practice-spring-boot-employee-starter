@@ -14,10 +14,14 @@ import java.util.List;
 @RequestMapping("/companies")
 public class CompanyController {
 
+    private final CompanyRepository companyRepository;
+    private final EmployeeRepository employeeRepository;
+
     @Autowired
-    CompanyRepository companyRepository;
-    @Autowired
-    EmployeeRepository employeeRepository;
+    public CompanyController(CompanyRepository companyRepository, EmployeeRepository employeeRepository) {
+        this.companyRepository = companyRepository;
+        this.employeeRepository = employeeRepository;
+    }
 
     @GetMapping
     public List<Company> listAll() {
