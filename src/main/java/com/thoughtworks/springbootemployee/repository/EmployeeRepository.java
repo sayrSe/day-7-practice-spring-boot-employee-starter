@@ -75,7 +75,8 @@ public class EmployeeRepository {
         return employee;
     }
 
-    public void deleteEmployee(Employee employee) {
+    public void deleteEmployee(Long id) {
+        Employee employee = findById(id);
         employees.remove(employee);
     }
 
