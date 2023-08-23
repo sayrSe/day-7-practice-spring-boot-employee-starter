@@ -25,4 +25,11 @@ public class EmployeeService {
         matchedEmployee.setActive(Boolean.FALSE);
         employeeRepository.updateEmployee(id, matchedEmployee);
     }
+
+    public Employee update(Long id, Employee newEmployeeInfo) {
+        Employee matchedEmployee = employeeRepository.findEmployeeById(id);
+        matchedEmployee.setAge(newEmployeeInfo.getAge());
+        matchedEmployee.setSalary(newEmployeeInfo.getSalary());
+        return employeeRepository.updateEmployee(id, matchedEmployee);
+    }
 }
