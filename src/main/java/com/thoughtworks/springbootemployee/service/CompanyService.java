@@ -38,4 +38,8 @@ public class CompanyService {
         matchedCompany.setActive(Boolean.FALSE);
         companyRepository.updateCompany(id, matchedCompany);
     }
+
+    public Company update(Long id, Company updatedCompanyInfo) {
+        return companyRepository.updateCompany(id, updatedCompanyInfo);
+    }
 }

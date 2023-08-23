@@ -11,7 +11,6 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
@@ -109,5 +108,20 @@ public class CompanyServiceTest {
         // Then
         assertEquals(savedCompany.getId(), companyResponse.getId());
         assertEquals("OOCL", companyResponse.getName());
+    }
+
+    @Test
+    void should_return_updated_company_when_update_given_company_name() {
+        // Given
+        Company company = new Company(null, "OOCL");
+        Company updatedCompanyInfo = new Company(null, "Thoughtworks");
+        when(mockedCompanyRepository.updateCompany(company.getId(), updatedCompanyInfo)).thenReturn(updatedCompanyInfo);
+
+        // When
+        Company updatedCompany = companyService.update(company.getId(), updatedCompanyInfo);
+
+        // Then
+        assertEquals(updatedCompanyInfo.getId(), updatedCompany.getId());
+        assertEquals(updatedCompanyInfo.getName(), updatedCompany.getName());
     }
 }
