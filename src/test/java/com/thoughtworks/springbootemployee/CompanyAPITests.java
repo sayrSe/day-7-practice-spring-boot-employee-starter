@@ -1,7 +1,9 @@
 package com.thoughtworks.springbootemployee;
 
 import com.thoughtworks.springbootemployee.model.Company;
+import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
+import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +23,14 @@ public class CompanyAPITests {
     @Autowired
     CompanyRepository companyRepository;
     @Autowired
+    EmployeeRepository employeeRepository;
+    @Autowired
     private MockMvc mockMvcClient;
 
     @BeforeEach
     void cleanupCompanyData() {
         companyRepository.cleanAll();
+        employeeRepository.cleanAll();
     }
 
     @Test
@@ -62,5 +67,24 @@ public class CompanyAPITests {
         // When, Then
         mockMvcClient.perform(MockMvcRequestBuilders.get("/companies/" + nonExistingId))
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void should_return_employees_by_given_company_when_perform_get_employees() throws Exception {
+        // Given
+        Long otherCompanyId = 99L;
+        Company company = companyRepository.addCompany(new Company("OOCL"));
+        Employee alice = employeeRepository.addEmployee(new Employee(null, "Alice", 24, "Female", 9000, company.getId()));
+        employeeRepository.addEmployee(new Employee(null, "Bob", 28, "Male", 8000, otherCompanyId));
+
+        // When, Then
+        mockMvcClient.perform(MockMvcRequestBuilders.get("/companies/" + company.getId() + "/employees"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$[0].id").value(alice.getId()))
+                .andExpect(jsonPath("$[0].name").value(alice.getName()))
+                .andExpect(jsonPath("$[0].age").value(alice.getAge()))
+                .andExpect(jsonPath("$[0].gender").value(alice.getGender()))
+                .andExpect(jsonPath("$[0].salary").value(alice.getSalary()));
     }
 }
