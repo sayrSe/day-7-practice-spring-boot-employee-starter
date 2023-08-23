@@ -25,8 +25,8 @@ public class EmployeeServiceTest {
     @Test
     void should_return_create_employee_when_create_given_employee_service_and_employee_with_valid_age() {
         // Given
-        Employee employee = new Employee("Lucy", 20, "Female", 3000);
-        Employee savedEmployee = new Employee(1L, "Lucy", 20, "Female", 3000);
+        Employee employee = new Employee("Lucy", 20, "Female", 3000, 1L);
+        Employee savedEmployee = new Employee(1L, "Lucy", 20, "Female", 3000, 1L);
         when(mockedEmployeeRepository.addEmployee(employee)).thenReturn(savedEmployee);
 
         // When
@@ -43,7 +43,7 @@ public class EmployeeServiceTest {
     @Test
     void should_throw_exception_when_create_given_employee_service_and_employee_whose_age_is_less_than_18() {
         // Given
-        Employee employee = new Employee("Lucy", 17, "Female", 3000);
+        Employee employee = new Employee("Lucy", 17, "Female", 3000, 1L);
 
         // When, Then
         EmployeeCreateException employeeCreateException = assertThrows(EmployeeCreateException.class, () ->
@@ -54,7 +54,7 @@ public class EmployeeServiceTest {
     @Test
     void should_throw_exception_when_create_given_employee_service_and_employee_whose_age_is_greater_than_65() {
         // Given
-        Employee employee = new Employee("Lucy", 70, "Female", 3000);
+        Employee employee = new Employee("Lucy", 70, "Female", 3000, 1L);
 
         // When, Then
         EmployeeCreateException employeeCreateException = assertThrows(EmployeeCreateException.class, () ->

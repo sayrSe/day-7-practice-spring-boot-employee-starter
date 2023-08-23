@@ -24,21 +24,6 @@ public class Employee {
         this.companyId = companyId;
     }
 
-    public Employee(Long id, String name, Integer age, String gender, Integer salary) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
-        this.gender = gender;
-        this.salary = salary;
-    }
-
-    public Employee(String name, Integer age, String gender, Integer salary) {
-        this.name = name;
-        this.age = age;
-        this.gender = gender;
-        this.salary = salary;
-    }
-
     public Employee(String name, Integer age, String gender, Integer salary, Long companyId) {
         this.name = name;
         this.age = age;
