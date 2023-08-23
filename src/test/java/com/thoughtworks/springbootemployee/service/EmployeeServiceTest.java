@@ -21,24 +21,21 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    void should_return_active_employee_when_create_given_employee_service_and_employee_with_valid_age() {
+    void should_return_created_employee_when_create_given_employee_service_and_employee_with_valid_age() {
         // Given
         Employee employee = new Employee("Lucy", 20, "Female", 3000, 1L);
         Employee savedEmployee = new Employee(1L, "Lucy", 20, "Female", 3000, 1L);
         when(mockedEmployeeRepository.addEmployee(employee)).thenReturn(savedEmployee);
 
-        employeeService.create(employee);
+        // When
+        Employee employeeResponse = employeeService.create(employee);
 
         // Then
-        verify(mockedEmployeeRepository).addEmployee(argThat(tempEmployee -> {
-            assertTrue(tempEmployee.isActive());
-            assertEquals(employee.getId(), tempEmployee.getId());
-            assertEquals("Lucy", tempEmployee.getName());
-            assertEquals(20, tempEmployee.getAge());
-            assertEquals("Female", tempEmployee.getGender());
-            assertEquals(3000, tempEmployee.getSalary());
-            return true;
-        }));
+        assertEquals(savedEmployee.getId(), employeeResponse.getId());
+        assertEquals("Lucy", employeeResponse.getName());
+        assertEquals(20, employeeResponse.getAge());
+        assertEquals("Female", employeeResponse.getGender());
+        assertEquals(3000, employeeResponse.getSalary());
     }
 
     @Test
