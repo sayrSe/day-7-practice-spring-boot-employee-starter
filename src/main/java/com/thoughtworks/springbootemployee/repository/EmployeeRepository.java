@@ -61,7 +61,7 @@ public class EmployeeRepository {
                 .orElse(EMPTY_LIST_SIZE) + ID_INCREMENT;
     }
 
-    public List<Employee> listByPage(Long pageNumber, Long pageSize) {
+    public List<Employee> listEmployeesByPage(Long pageNumber, Long pageSize) {
         return employees.stream()
                 .skip((pageNumber - 1) * pageSize)
                 .limit(pageSize)
