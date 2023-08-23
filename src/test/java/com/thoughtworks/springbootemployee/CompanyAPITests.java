@@ -104,4 +104,18 @@ public class CompanyAPITests {
                 .andExpect(jsonPath("$.id").value(notNullValue()))
                 .andExpect(jsonPath("$.name").value("OOCL"));
     }
+
+    @Test
+    void should_return_updated_company_when_perform_update_company_given_company_name() throws Exception {
+        // Given
+        Company company = companyRepository.addCompany(new Company("OOCL"));
+        Company updateCompanyInfo = new Company("COSCO");
+
+        // When, Then
+        mockMvcClient.perform(MockMvcRequestBuilders.put("/companies/" + company.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(new ObjectMapper().writeValueAsBytes(updateCompanyInfo)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name").value("COSCO"));
+    }
 }
