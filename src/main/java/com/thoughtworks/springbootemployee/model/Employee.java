@@ -69,6 +69,10 @@ public class Employee {
         return active;
     }
 
+    public Boolean isInactive() {
+        return !active;
+    }
+
     public void setActive(Boolean active) {
         this.active = active;
     }
