@@ -19,17 +19,17 @@ public class EmployeeController {
 
     @GetMapping
     public List<Employee> listAll() {
-        return employeeRepository.listAll();
+        return employeeRepository.getAllEmployees();
     }
 
     @GetMapping("/{id}")
     public Employee findById(@PathVariable Long id) {
-        return employeeRepository.findById(id);
+        return employeeRepository.findEmployeeById(id);
     }
 
     @GetMapping(params = {"gender"})
     public List<Employee> findByGender(@RequestParam String gender) {
-        return employeeRepository.findByGender(gender);
+        return employeeRepository.findEmployeeByGender(gender);
     }
 
     @PostMapping

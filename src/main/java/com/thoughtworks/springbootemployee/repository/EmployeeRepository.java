@@ -23,25 +23,25 @@ public class EmployeeRepository {
         employees.add(new Employee(5L, "Ellen", 34, "Female", 5000, 3L));
     }
 
-    public List<Employee> listAll() {
+    public List<Employee> getAllEmployees() {
         return employees;
     }
 
-    public Employee findById(Long id) {
+    public Employee findEmployeeById(Long id) {
         return employees.stream()
                 .filter(employee -> employee.getId().equals(id))
                 .findFirst()
                 .orElseThrow(EmployeeNotFoundException::new);
     }
 
-    public List<Employee> findByGender(String gender) {
+    public List<Employee> findEmployeeByGender(String gender) {
         return employees.stream()
                 .filter(employee -> employee.getGender().equals(gender))
                 .collect(Collectors.toList());
     }
 
     public Employee addEmployee(Employee employee) {
-        Long id = generateNextId();
+        Long id = generateNextEmployeeId();
         Employee newEmployee = new Employee(
                 id,
                 employee.getName(),
@@ -54,7 +54,7 @@ public class EmployeeRepository {
         return newEmployee;
     }
 
-    private Long generateNextId() {
+    private Long generateNextEmployeeId() {
         return employees.stream()
                 .mapToLong(Employee::getId)
                 .max()
@@ -69,14 +69,14 @@ public class EmployeeRepository {
     }
 
     public Employee updateEmployee(Long id, Employee newEmployeeInfo) {
-        Employee employee = findById(id);
+        Employee employee = findEmployeeById(id);
         employee.setAge(newEmployeeInfo.getAge());
         employee.setSalary(newEmployeeInfo.getSalary());
         return employee;
     }
 
     public void deleteEmployee(Long id) {
-        Employee employee = findById(id);
+        Employee employee = findEmployeeById(id);
         employees.remove(employee);
     }
 
