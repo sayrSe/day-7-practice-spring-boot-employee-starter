@@ -128,4 +128,19 @@ public class CompanyAPITests {
         mockMvcClient.perform(MockMvcRequestBuilders.delete("/companies/" + company.getId()))
                 .andExpect(status().isNoContent());
     }
+
+    @Test
+    void should_paged_companies_when_perform_get_list_paged_companies_given_pageNumber_and_pageSize() throws Exception {
+        // Given
+        companyRepository.addCompany(new Company("Thoughtworks"));
+        Company company = companyRepository.addCompany(new Company("OOCL"));
+
+        // When, Then
+        mockMvcClient.perform(MockMvcRequestBuilders.get("/companies")
+                        .param("pageNumber", "2")
+                        .param("pageSize", "1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$[0].id").value(company.getId()));
+    }
 }
