@@ -19,22 +19,22 @@ public class CompanyController {
     }
 
     @GetMapping
-    public List<Company> listAll() {
+    public List<Company> listAllCompanies() {
         return companyService.getAll();
     }
 
     @GetMapping("/{id}")
-    public Company findById(@PathVariable Long id) {
+    public Company findByCompanyId(@PathVariable Long id) {
         return companyService.findById(id);
     }
 
     @GetMapping("/{id}/employees")
-    public List<Employee> getEmployees(@PathVariable Long id) {
+    public List<Employee> getEmployeesByCompanyId(@PathVariable Long id) {
         return companyService.findEmployeesByCompanyId(id);
     }
 
     @GetMapping(params = {"pageNumber", "pageSize"})
-    public List<Company> listByPage(@RequestParam Long pageNumber, @RequestParam Long pageSize) {
+    public List<Company> getCompaniesByPage(@RequestParam Long pageNumber, @RequestParam Long pageSize) {
         return companyService.getCompaniesByPage(pageNumber, pageSize);
     }
 
