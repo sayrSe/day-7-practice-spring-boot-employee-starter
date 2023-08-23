@@ -125,7 +125,7 @@ public class EmployeeAPITests {
     }
 
     @Test
-    void should_return_response_status_204_no_content_and_employee_not_found_when_perform_delete_employee_given_an_employee_id() throws Exception {
+    void should_return_response_status_204_no_content_when_perform_delete_employee_given_an_employee_id() throws Exception {
         // Given
         Employee alice = employeeRepository.addEmployee(new Employee(null, "Alice", 24, "Female", 9000));
 
