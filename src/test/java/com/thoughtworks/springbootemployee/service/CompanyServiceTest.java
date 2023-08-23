@@ -124,4 +124,19 @@ public class CompanyServiceTest {
         assertEquals(updatedCompanyInfo.getId(), updatedCompany.getId());
         assertEquals(updatedCompanyInfo.getName(), updatedCompany.getName());
     }
+
+    @Test
+    void should_paged_companies_when_get_companies_by_page_given_company_service_and_pageNumber_and_pageSize() {
+        // Given
+        Company company = new Company("OOCL");
+        List<Company> companies = List.of(company);
+        when(mockedCompanyRepository.listCompaniesByPage(anyLong(), anyLong())).thenReturn(companies);
+
+        // When
+        List<Company> pagedCompanies = companyService.getCompaniesByPage(1L, 1L);
+
+        // Then
+        assertEquals(pagedCompanies.get(0).getId(), company.getId());
+        assertEquals(pagedCompanies.get(0).getName(), company.getName());
+    }
 }

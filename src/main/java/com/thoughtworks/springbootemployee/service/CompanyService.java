@@ -42,4 +42,8 @@ public class CompanyService {
     public Company update(Long id, Company updatedCompanyInfo) {
         return companyRepository.updateCompany(id, updatedCompanyInfo);
     }
+
+    public List<Company> getCompaniesByPage(Long pageNumber, Long pageSize) {
+        return companyRepository.listCompaniesByPage(pageNumber, pageSize);
+    }
 }
