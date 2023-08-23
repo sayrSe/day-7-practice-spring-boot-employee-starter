@@ -23,8 +23,8 @@ public class EmployeeServiceTest {
     @Test
     void should_return_created_active_employee_when_create_given_employee_service_and_employee_with_valid_age() {
         // Given
-        Employee employee = new Employee("Lucy", 20, "Female", 3000, 1L);
-        Employee savedEmployee = new Employee(1L, "Lucy", 20, "Female", 3000, 1L);
+        Employee employee = new Employee(null, "Lucy", 20, "Female", 3000);
+        Employee savedEmployee = new Employee(1L, "Lucy", 20, "Female", 3000);
         when(mockedEmployeeRepository.addEmployee(employee)).thenReturn(savedEmployee);
 
         // When
@@ -45,7 +45,7 @@ public class EmployeeServiceTest {
     @Test
     void should_throw_exception_when_create_given_employee_service_and_employee_whose_age_is_less_than_18() {
         // Given
-        Employee employee = new Employee("Lucy", 17, "Female", 3000, 1L);
+        Employee employee = new Employee(null, "Lucy", 17, "Female", 3000);
 
         // When, Then
         EmployeeCreateException employeeCreateException = assertThrows(EmployeeCreateException.class, () ->
@@ -56,7 +56,7 @@ public class EmployeeServiceTest {
     @Test
     void should_throw_exception_when_create_given_employee_service_and_employee_whose_age_is_greater_than_65() {
         // Given
-        Employee employee = new Employee("Lucy", 70, "Female", 3000, 1L);
+        Employee employee = new Employee(null, "Lucy", 70, "Female", 3000);
 
         // When, Then
         EmployeeCreateException employeeCreateException = assertThrows(EmployeeCreateException.class, () ->
@@ -67,7 +67,7 @@ public class EmployeeServiceTest {
     @Test
     void should_return_inactive_employee_when_delete_given_employee_service_and_active_employee() {
         // Given
-        Employee employee = new Employee("Lucy", 20, "Female", 3000, 1L);
+        Employee employee = new Employee(null, "Lucy", 20, "Female", 3000);
         employee.setActive(Boolean.TRUE);
         when(mockedEmployeeRepository.findEmployeeById(employee.getId())).thenReturn(employee);
 
@@ -88,7 +88,7 @@ public class EmployeeServiceTest {
     @Test
     void should_return_updated_employee_when_update_given_employee_age_and_salary() {
         // Given
-        Employee employee = new Employee("Lucy", 20, "Female", 3000, 1L);
+        Employee employee = new Employee(null, "Lucy", 20, "Female", 3000);
         employee.setActive(Boolean.TRUE);
         Employee updatedEmployeeInfo = new Employee();
         updatedEmployeeInfo.setAge(30);

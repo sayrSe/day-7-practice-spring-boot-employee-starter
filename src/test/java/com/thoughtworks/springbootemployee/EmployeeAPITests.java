@@ -34,7 +34,7 @@ public class EmployeeAPITests {
     @Test
     void should_return_all_employees_when_perform_get_employees() throws Exception {
         // Given
-        Employee alice = employeeRepository.addEmployee(new Employee("Alice", 24, "Female", 9000, 1L));
+        Employee alice = employeeRepository.addEmployee(new Employee(null, "Alice", 24, "Female", 9000));
 
         // When, Then
         mockMvcClient.perform(MockMvcRequestBuilders.get("/employees"))
@@ -50,8 +50,8 @@ public class EmployeeAPITests {
     @Test
     void should_return_the_employee_when_perform_get_employee_given_an_employee_id() throws Exception {
         // Given
-        Employee alice = employeeRepository.addEmployee(new Employee("Alice", 24, "Female", 9000, 1L));
-        employeeRepository.addEmployee(new Employee("Bob", 28, "Male", 8000, 1L));
+        Employee alice = employeeRepository.addEmployee(new Employee(null, "Alice", 24, "Female", 9000));
+        employeeRepository.addEmployee(new Employee(null, "Bob", 28, "Male", 8000));
 
         // When, Then
         mockMvcClient.perform(MockMvcRequestBuilders.get("/employees/" + alice.getId()))
@@ -76,8 +76,8 @@ public class EmployeeAPITests {
     @Test
     void should_return_employees_by_given_gender_when_perform_get_employees() throws Exception {
         // Given
-        Employee alice = employeeRepository.addEmployee(new Employee("Alice", 24, "Female", 9000, 1L));
-        employeeRepository.addEmployee(new Employee("Bob", 28, "Male", 8000, 1L));
+        Employee alice = employeeRepository.addEmployee(new Employee(null, "Alice", 24, "Female", 9000));
+        employeeRepository.addEmployee(new Employee(null, "Bob", 28, "Male", 8000));
 
         // When, Then
         mockMvcClient.perform(MockMvcRequestBuilders.get("/employees").param("gender", "Female"))
@@ -93,7 +93,7 @@ public class EmployeeAPITests {
     @Test
     void should_return_new_employee_when_perform_add_employee_given_new_employee() throws Exception {
         // Given
-        Employee newEmployee = employeeRepository.addEmployee(new Employee("Alice", 24, "Female", 9000, 1L));
+        Employee newEmployee = employeeRepository.addEmployee(new Employee(null, "Alice", 24, "Female", 9000));
 
         // When, Then
         mockMvcClient.perform(MockMvcRequestBuilders.post("/employees")
@@ -110,7 +110,7 @@ public class EmployeeAPITests {
     @Test
     void should_return_updated_employee_when_perform_update_employee_given_employee_age_and_salary() throws Exception {
         // Given
-        Employee alice = employeeRepository.addEmployee(new Employee("Alice", 24, "Female", 9000, 1L));
+        Employee alice = employeeRepository.addEmployee(new Employee(null, "Alice", 24, "Female", 9000));
         Employee updatedEmployeeInfo = new Employee();
         updatedEmployeeInfo.setAge(30);
         updatedEmployeeInfo.setSalary(10000);
@@ -127,7 +127,7 @@ public class EmployeeAPITests {
     @Test
     void should_return_response_status_204_no_content_and_employee_not_found_when_perform_delete_employee_given_an_employee_id() throws Exception {
         // Given
-        Employee alice = employeeRepository.addEmployee(new Employee("Alice", 24, "Female", 9000, 1L));
+        Employee alice = employeeRepository.addEmployee(new Employee(null, "Alice", 24, "Female", 9000));
 
         // When, Then
         mockMvcClient.perform(MockMvcRequestBuilders.delete("/employees/" + alice.getId()))
@@ -140,8 +140,8 @@ public class EmployeeAPITests {
     @Test
     void should_paged_employees_when_perform_get_list_paged_employees_given_pageNumber_and_pageSize() throws Exception {
         // Given
-        employeeRepository.addEmployee(new Employee("Bob", 28, "Male", 8000, 1L));
-        Employee alice = employeeRepository.addEmployee(new Employee("Alice", 24, "Female", 9000, 1L));
+        employeeRepository.addEmployee(new Employee(null, "Bob", 28, "Male", 8000));
+        Employee alice = employeeRepository.addEmployee(new Employee(null, "Alice", 24, "Female", 9000));
 
         // When, Then
         mockMvcClient.perform(MockMvcRequestBuilders.get("/employees")
