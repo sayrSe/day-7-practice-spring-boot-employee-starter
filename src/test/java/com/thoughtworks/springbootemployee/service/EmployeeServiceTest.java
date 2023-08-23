@@ -50,4 +50,15 @@ public class EmployeeServiceTest {
                 employeeService.create(employee));
         assertEquals("Employee must be 18~65 years old", employeeCreateException.getMessage());
     }
+
+    @Test
+    void should_throw_exception_when_create_given_employee_service_and_employee_whose_age_is_greater_than_65() {
+        // Given
+        Employee employee = new Employee("Lucy", 70, "Female", 3000);
+
+        // When, Then
+        EmployeeCreateException employeeCreateException = assertThrows(EmployeeCreateException.class, () ->
+                employeeService.create(employee));
+        assertEquals("Employee must be 18~65 years old", employeeCreateException.getMessage());
+    }
 }
