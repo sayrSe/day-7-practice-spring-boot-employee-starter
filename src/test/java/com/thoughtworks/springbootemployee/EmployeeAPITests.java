@@ -48,7 +48,7 @@ public class EmployeeAPITests {
     }
 
     @Test
-    void should_return_the_employee_when_perform_get_employee_given_given_an_employee_id() throws Exception {
+    void should_return_the_employee_when_perform_get_employee_given_an_employee_id() throws Exception {
         // Given
         Employee alice = employeeRepository.addEmployee(new Employee("Alice", 24, "Female", 9000, 1L));
         employeeRepository.addEmployee(new Employee("Bob", 28, "Male", 8000, 1L));
