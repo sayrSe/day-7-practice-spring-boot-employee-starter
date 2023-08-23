@@ -28,7 +28,6 @@ public class Employee {
         this.age = age;
         this.gender = gender;
         this.salary = salary;
-        this.companyId = companyId;
     }
 
     public Employee(String name, Integer age, String gender, Integer salary) {
@@ -36,7 +35,6 @@ public class Employee {
         this.age = age;
         this.gender = gender;
         this.salary = salary;
-        this.companyId = companyId;
     }
 
     public Employee(String name, Integer age, String gender, Integer salary, Long companyId) {
