@@ -24,9 +24,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class CompanyAPITests {
 
     @Autowired
-    CompanyRepository companyRepository;
+    private CompanyRepository companyRepository;
     @Autowired
-    EmployeeRepository employeeRepository;
+    private EmployeeRepository employeeRepository;
     @Autowired
     private MockMvc mockMvcClient;
 
