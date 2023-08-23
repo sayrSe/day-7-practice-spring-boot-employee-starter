@@ -145,7 +145,7 @@ public class EmployeeServiceTest {
     @Test
     void should_return_updated_employee_when_update_given_employee_age_and_salary() {
         // Given
-        Employee employee = new Employee(null, "Lucy", 20, "Female", 3000);
+        Employee employee = new Employee(1L, "Lucy", 20, "Female", 3000);
         employee.setActive(Boolean.TRUE);
         Employee updatedEmployeeInfo = new Employee(null, null, 30, null, 10000);
         when(mockedEmployeeRepository.findEmployeeById(employee.getId())).thenReturn(employee);
