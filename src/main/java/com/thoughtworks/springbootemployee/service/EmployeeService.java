@@ -50,4 +50,8 @@ public class EmployeeService {
         }
         return employeeRepository.updateEmployee(id, newEmployeeInfo);
     }
+
+    public List<Employee> getEmployeesByPage(Long pageNumber, Long pageSize) {
+        return employeeRepository.listEmployeesByPage(pageNumber, pageSize);
+    }
 }

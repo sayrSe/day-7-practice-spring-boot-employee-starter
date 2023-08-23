@@ -177,4 +177,22 @@ public class EmployeeServiceTest {
                 employeeService.update(null, updatedEmployeeInfo));
         assertEquals("Employee is inactive", employeeUpdateException.getMessage());
     }
+
+    @Test
+    void should_paged_employees_when_get_employees_by_page_given_employee_service_and_pageNumber_and_pageSize() {
+    	// Given
+        Employee alice = new Employee(null, "Alice", 24, "Female", 9000);
+        List<Employee> employees = List.of(alice);
+        when(mockedEmployeeRepository.listEmployeesByPage(anyLong(), anyLong())).thenReturn(employees);
+
+    	// When
+        List<Employee> pagedEmployees = employeeService.getEmployeesByPage(1L, 1L);
+
+    	// Then
+        assertEquals(pagedEmployees.get(0).getId(), alice.getId());
+        assertEquals(pagedEmployees.get(0).getName(), alice.getName());
+        assertEquals(pagedEmployees.get(0).getAge(), alice.getAge());
+        assertEquals(pagedEmployees.get(0).getGender(), alice.getGender());
+        assertEquals(pagedEmployees.get(0).getSalary(), alice.getSalary());
+    }
 }
