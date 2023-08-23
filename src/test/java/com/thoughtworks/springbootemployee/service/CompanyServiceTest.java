@@ -57,12 +57,10 @@ public class CompanyServiceTest {
     }
 
     @Test
-    void should_return_employees_by_given_gender_when_get_employees_given_employee_service() {
+    void should_return_employees_by_given_company_when_get_find_employees_by_company_id_given_company_service() {
         // Given
-        Long otherCompanyId = 99L;
         Company company = new Company(1L, "OOCL");
         Employee alice = new Employee(null, "Alice", 24, "Female", 9000, company.getId());
-        Employee bob = new Employee(null, "Bob", 28, "Male", 8000, otherCompanyId);
 
         List<Employee> employees = List.of(alice);
         when(mockedEmployeeRepository.findEmployeesByCompanyId(company.getId())).thenReturn(employees);
