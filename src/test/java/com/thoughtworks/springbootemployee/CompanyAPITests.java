@@ -1,5 +1,6 @@
 package com.thoughtworks.springbootemployee;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thoughtworks.springbootemployee.model.Company;
 import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
@@ -9,10 +10,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -86,5 +89,19 @@ public class CompanyAPITests {
                 .andExpect(jsonPath("$[0].age").value(alice.getAge()))
                 .andExpect(jsonPath("$[0].gender").value(alice.getGender()))
                 .andExpect(jsonPath("$[0].salary").value(alice.getSalary()));
+    }
+
+    @Test
+    void should_return_new_company_when_perform_add_company_given_new_company() throws Exception {
+        // Given
+        Company company = companyRepository.addCompany(new Company("OOCL"));
+
+        // When, Then
+        mockMvcClient.perform(MockMvcRequestBuilders.post("/companies")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(new ObjectMapper().writeValueAsBytes(company)))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id").value(notNullValue()))
+                .andExpect(jsonPath("$.name").value("OOCL"));
     }
 }
