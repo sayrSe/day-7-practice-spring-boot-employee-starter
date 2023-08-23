@@ -16,6 +16,7 @@ public class EmployeeService {
         if (employee.hasInvalidAge()) {
             throw new EmployeeCreateException();
         }
+        employee.setActive(Boolean.TRUE);
         return employeeRepository.addEmployee(employee);
     }
 
