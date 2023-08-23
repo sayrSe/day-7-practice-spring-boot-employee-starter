@@ -118,4 +118,14 @@ public class CompanyAPITests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("COSCO"));
     }
+
+    @Test
+    void should_return_response_status_204_no_content_when_perform_delete_company_given_company_id() throws Exception {
+        // Given
+        Company company = companyRepository.addCompany(new Company("OOCL"));
+
+        // When, Then
+        mockMvcClient.perform(MockMvcRequestBuilders.delete("/companies/" + company.getId()))
+                .andExpect(status().isNoContent());
+    }
 }
