@@ -10,7 +10,7 @@ public class Employee {
     private String gender;
     private Integer salary;
     private Long companyId;
-    private boolean active = true;
+    private Boolean active = true;
 
     public Employee() {
 
@@ -65,7 +65,7 @@ public class Employee {
         return companyId;
     }
 
-    public boolean isActive() {
+    public Boolean isActive() {
         return active;
     }
 

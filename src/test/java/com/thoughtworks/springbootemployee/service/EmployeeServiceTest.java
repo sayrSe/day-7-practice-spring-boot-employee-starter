@@ -22,7 +22,7 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    void should_return_create_active_employee_when_create_given_employee_service_and_employee_with_valid_age() {
+    void should_return_active_employee_when_create_given_employee_service_and_employee_with_valid_age() {
         // Given
         Employee employee = new Employee("Lucy", 20, "Female", 3000, 1L);
         Employee savedEmployee = new Employee(1L, "Lucy", 20, "Female", 3000, 1L);
