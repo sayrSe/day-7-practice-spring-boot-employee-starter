@@ -20,4 +20,8 @@ public class CompanyService {
     public Company findById(Long id) {
         return companyRepository.findCompanyById(id);
     }
+
+    public Company create(Company company) {
+        return companyRepository.addCompany(company);
+    }
 }
