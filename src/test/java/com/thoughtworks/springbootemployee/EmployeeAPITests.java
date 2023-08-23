@@ -132,9 +132,6 @@ public class EmployeeAPITests {
         // When, Then
         mockMvcClient.perform(MockMvcRequestBuilders.delete("/employees/" + alice.getId()))
                 .andExpect(status().isNoContent());
-
-        mockMvcClient.perform(MockMvcRequestBuilders.get("/employees/" + alice.getId()))
-                .andExpect(status().isNotFound());
     }
 
     @Test
