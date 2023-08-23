@@ -10,7 +10,7 @@ public class Employee {
     private String gender;
     private Integer salary;
     private Long companyId;
-    private Boolean active = true;
+    private Boolean active;
 
     public Employee() {
 
@@ -67,6 +67,10 @@ public class Employee {
 
     public Boolean isActive() {
         return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     public boolean hasInvalidAge() {

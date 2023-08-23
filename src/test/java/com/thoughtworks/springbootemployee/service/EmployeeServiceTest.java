@@ -7,8 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class EmployeeServiceTest {
 
@@ -60,5 +59,26 @@ public class EmployeeServiceTest {
         EmployeeCreateException employeeCreateException = assertThrows(EmployeeCreateException.class, () ->
                 employeeService.create(employee));
         assertEquals("Employee must be 18~65 years old", employeeCreateException.getMessage());
+    }
+
+    @Test
+    void should_return_inactive_employee_when_delete_given_employee_service_and_active_employee() {
+        // Given
+        Employee employee = new Employee("Lucy", 20, "Female", 3000, 1L);
+        employee.setActive(Boolean.TRUE);
+        when(mockedEmployeeRepository.findEmployeeById(employee.getId())).thenReturn(employee);
+
+        // When
+        employeeService.delete(employee.getId());
+
+        // Then
+        verify(mockedEmployeeRepository).updateEmployee(eq(employee.getId()), argThat(tempEmployee -> {
+            assertFalse(tempEmployee.isActive());
+            assertEquals("Lucy", tempEmployee.getName());
+            assertEquals(20, tempEmployee.getAge());
+            assertEquals("Female", tempEmployee.getGender());
+            assertEquals(3000, tempEmployee.getSalary());
+            return true;
+        }));
     }
 }
