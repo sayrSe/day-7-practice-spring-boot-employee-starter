@@ -110,7 +110,7 @@ public class EmployeeAPITests {
     @Test
     void should_return_updated_employee_when_perform_update_employee_given_employee_age_and_salary() throws Exception {
         // Given
-        Employee alice = employeeRepository.addEmployee(new Employee(null, "Alice", 24, "Female", 9000));
+        Employee alice = employeeRepository.addEmployee(new Employee(1L, "Alice", 24, "Female", 9000));
         Employee updatedEmployeeInfo = new Employee();
         updatedEmployeeInfo.setAge(30);
         updatedEmployeeInfo.setSalary(10000);
